@@ -10,14 +10,29 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppVoiceRouteImport } from './routes/app.voice'
+import { Route as AppTextRouteImport } from './routes/app.text'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppSavedRouteImport } from './routes/app.saved'
+import { Route as AppImageRouteImport } from './routes/app.image'
+import { Route as AppHistoryRouteImport } from './routes/app.history'
+import { Route as AppDocumentRouteImport } from './routes/app.document'
+import { Route as AppConversationRouteImport } from './routes/app.conversation'
+import { Route as AppAssistantRouteImport } from './routes/app.assistant'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -40,18 +55,83 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppVoiceRoute = AppVoiceRouteImport.update({
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTextRoute = AppTextRouteImport.update({
+  id: '/text',
+  path: '/text',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSavedRoute = AppSavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppImageRoute = AppImageRouteImport.update({
+  id: '/image',
+  path: '/image',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHistoryRoute = AppHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDocumentRoute = AppDocumentRouteImport.update({
+  id: '/document',
+  path: '/document',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppConversationRoute = AppConversationRouteImport.update({
+  id: '/conversation',
+  path: '/conversation',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAssistantRoute = AppAssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
+  '/pricing': typeof PricingRoute
   '/signup': typeof SignupRoute
+  '/app/assistant': typeof AppAssistantRoute
+  '/app/conversation': typeof AppConversationRoute
+  '/app/document': typeof AppDocumentRoute
+  '/app/history': typeof AppHistoryRoute
+  '/app/image': typeof AppImageRoute
+  '/app/saved': typeof AppSavedRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/text': typeof AppTextRoute
+  '/app/voice': typeof AppVoiceRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/pricing': typeof PricingRoute
   '/signup': typeof SignupRoute
+  '/app/assistant': typeof AppAssistantRoute
+  '/app/conversation': typeof AppConversationRoute
+  '/app/document': typeof AppDocumentRoute
+  '/app/history': typeof AppHistoryRoute
+  '/app/image': typeof AppImageRoute
+  '/app/saved': typeof AppSavedRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/text': typeof AppTextRoute
+  '/app/voice': typeof AppVoiceRoute
   '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
@@ -59,21 +139,77 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
+  '/pricing': typeof PricingRoute
   '/signup': typeof SignupRoute
+  '/app/assistant': typeof AppAssistantRoute
+  '/app/conversation': typeof AppConversationRoute
+  '/app/document': typeof AppDocumentRoute
+  '/app/history': typeof AppHistoryRoute
+  '/app/image': typeof AppImageRoute
+  '/app/saved': typeof AppSavedRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/text': typeof AppTextRoute
+  '/app/voice': typeof AppVoiceRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/login' | '/signup' | '/app/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/login'
+    | '/pricing'
+    | '/signup'
+    | '/app/assistant'
+    | '/app/conversation'
+    | '/app/document'
+    | '/app/history'
+    | '/app/image'
+    | '/app/saved'
+    | '/app/settings'
+    | '/app/text'
+    | '/app/voice'
+    | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup' | '/app'
-  id: '__root__' | '/' | '/app' | '/login' | '/signup' | '/app/'
+  to:
+    | '/'
+    | '/login'
+    | '/pricing'
+    | '/signup'
+    | '/app/assistant'
+    | '/app/conversation'
+    | '/app/document'
+    | '/app/history'
+    | '/app/image'
+    | '/app/saved'
+    | '/app/settings'
+    | '/app/text'
+    | '/app/voice'
+    | '/app'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/login'
+    | '/pricing'
+    | '/signup'
+    | '/app/assistant'
+    | '/app/conversation'
+    | '/app/document'
+    | '/app/history'
+    | '/app/image'
+    | '/app/saved'
+    | '/app/settings'
+    | '/app/text'
+    | '/app/voice'
+    | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
   LoginRoute: typeof LoginRoute
+  PricingRoute: typeof PricingRoute
   SignupRoute: typeof SignupRoute
 }
 
@@ -84,6 +220,13 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -114,14 +257,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/voice': {
+      id: '/app/voice'
+      path: '/voice'
+      fullPath: '/app/voice'
+      preLoaderRoute: typeof AppVoiceRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/text': {
+      id: '/app/text'
+      path: '/text'
+      fullPath: '/app/text'
+      preLoaderRoute: typeof AppTextRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/saved': {
+      id: '/app/saved'
+      path: '/saved'
+      fullPath: '/app/saved'
+      preLoaderRoute: typeof AppSavedRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/image': {
+      id: '/app/image'
+      path: '/image'
+      fullPath: '/app/image'
+      preLoaderRoute: typeof AppImageRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/history': {
+      id: '/app/history'
+      path: '/history'
+      fullPath: '/app/history'
+      preLoaderRoute: typeof AppHistoryRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/document': {
+      id: '/app/document'
+      path: '/document'
+      fullPath: '/app/document'
+      preLoaderRoute: typeof AppDocumentRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/conversation': {
+      id: '/app/conversation'
+      path: '/conversation'
+      fullPath: '/app/conversation'
+      preLoaderRoute: typeof AppConversationRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/assistant': {
+      id: '/app/assistant'
+      path: '/assistant'
+      fullPath: '/app/assistant'
+      preLoaderRoute: typeof AppAssistantRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppAssistantRoute: typeof AppAssistantRoute
+  AppConversationRoute: typeof AppConversationRoute
+  AppDocumentRoute: typeof AppDocumentRoute
+  AppHistoryRoute: typeof AppHistoryRoute
+  AppImageRoute: typeof AppImageRoute
+  AppSavedRoute: typeof AppSavedRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppTextRoute: typeof AppTextRoute
+  AppVoiceRoute: typeof AppVoiceRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAssistantRoute: AppAssistantRoute,
+  AppConversationRoute: AppConversationRoute,
+  AppDocumentRoute: AppDocumentRoute,
+  AppHistoryRoute: AppHistoryRoute,
+  AppImageRoute: AppImageRoute,
+  AppSavedRoute: AppSavedRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppTextRoute: AppTextRoute,
+  AppVoiceRoute: AppVoiceRoute,
   AppIndexRoute: AppIndexRoute,
 }
 
@@ -131,6 +355,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
   LoginRoute: LoginRoute,
+  PricingRoute: PricingRoute,
   SignupRoute: SignupRoute,
 }
 export const routeTree = rootRouteImport
