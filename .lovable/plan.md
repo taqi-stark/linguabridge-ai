@@ -14,12 +14,14 @@ A production-feel multilingual SaaS for translating text, documents/images, and 
 ## Information architecture (TanStack routes)
 
 Public:
+
 - `/` — Landing (hero, features, how-it-works, languages, pricing teaser, footer)
 - `/pricing` — Free / Pro / Enterprise comparison
 - `/about`, `/api-docs`, `/docs`, `/features`
 - `/login`, `/signup`, `/forgot-password`, `/reset-password`
 
 Authenticated app (`/_authenticated/app/*`) with sidebar + topbar shell:
+
 - `/app` — Home dashboard (recent activity, quick actions, usage widgets)
 - `/app/text` — Text translator
 - `/app/voice` — Voice translator
@@ -32,6 +34,7 @@ Authenticated app (`/_authenticated/app/*`) with sidebar + topbar shell:
 - `/app/settings` — Profile, languages, voice, theme, notifications
 
 Admin (role-gated):
+
 - `/_authenticated/admin` — Analytics, usage charts, flagged content, subscriptions
 
 ## Functionality (real AI via Lovable AI Gateway)

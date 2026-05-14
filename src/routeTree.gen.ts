@@ -17,13 +17,16 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppVoiceRouteImport } from './routes/app.voice'
 import { Route as AppTextRouteImport } from './routes/app.text'
+import { Route as AppStudentGuideRouteImport } from './routes/app.student-guide'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppSavedRouteImport } from './routes/app.saved'
+import { Route as AppRoleplayRouteImport } from './routes/app.roleplay'
 import { Route as AppImageRouteImport } from './routes/app.image'
 import { Route as AppHistoryRouteImport } from './routes/app.history'
 import { Route as AppDocumentRouteImport } from './routes/app.document'
-import { Route as AppConversationRouteImport } from './routes/app.conversation'
-import { Route as AppAssistantRouteImport } from './routes/app.assistant'
+import { Route as AppCommunityRouteImport } from './routes/app.community'
+import { Route as AppStudentGuideCountryRouteImport } from './routes/app.student-guide.$country'
+import { Route as AppStudentGuideCountryCategoryRouteImport } from './routes/app.student-guide.$country.$category'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -65,6 +68,11 @@ const AppTextRoute = AppTextRouteImport.update({
   path: '/text',
   getParentRoute: () => AppRoute,
 } as any)
+const AppStudentGuideRoute = AppStudentGuideRouteImport.update({
+  id: '/student-guide',
+  path: '/student-guide',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -73,6 +81,11 @@ const AppSettingsRoute = AppSettingsRouteImport.update({
 const AppSavedRoute = AppSavedRouteImport.update({
   id: '/saved',
   path: '/saved',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRoleplayRoute = AppRoleplayRouteImport.update({
+  id: '/roleplay',
+  path: '/roleplay',
   getParentRoute: () => AppRoute,
 } as any)
 const AppImageRoute = AppImageRouteImport.update({
@@ -90,16 +103,22 @@ const AppDocumentRoute = AppDocumentRouteImport.update({
   path: '/document',
   getParentRoute: () => AppRoute,
 } as any)
-const AppConversationRoute = AppConversationRouteImport.update({
-  id: '/conversation',
-  path: '/conversation',
+const AppCommunityRoute = AppCommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
   getParentRoute: () => AppRoute,
 } as any)
-const AppAssistantRoute = AppAssistantRouteImport.update({
-  id: '/assistant',
-  path: '/assistant',
-  getParentRoute: () => AppRoute,
+const AppStudentGuideCountryRoute = AppStudentGuideCountryRouteImport.update({
+  id: '/$country',
+  path: '/$country',
+  getParentRoute: () => AppStudentGuideRoute,
 } as any)
+const AppStudentGuideCountryCategoryRoute =
+  AppStudentGuideCountryCategoryRouteImport.update({
+    id: '/$category',
+    path: '/$category',
+    getParentRoute: () => AppStudentGuideCountryRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -107,32 +126,38 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
   '/signup': typeof SignupRoute
-  '/app/assistant': typeof AppAssistantRoute
-  '/app/conversation': typeof AppConversationRoute
+  '/app/community': typeof AppCommunityRoute
   '/app/document': typeof AppDocumentRoute
   '/app/history': typeof AppHistoryRoute
   '/app/image': typeof AppImageRoute
+  '/app/roleplay': typeof AppRoleplayRoute
   '/app/saved': typeof AppSavedRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/student-guide': typeof AppStudentGuideRouteWithChildren
   '/app/text': typeof AppTextRoute
   '/app/voice': typeof AppVoiceRoute
   '/app/': typeof AppIndexRoute
+  '/app/student-guide/$country': typeof AppStudentGuideCountryRouteWithChildren
+  '/app/student-guide/$country/$category': typeof AppStudentGuideCountryCategoryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
   '/signup': typeof SignupRoute
-  '/app/assistant': typeof AppAssistantRoute
-  '/app/conversation': typeof AppConversationRoute
+  '/app/community': typeof AppCommunityRoute
   '/app/document': typeof AppDocumentRoute
   '/app/history': typeof AppHistoryRoute
   '/app/image': typeof AppImageRoute
+  '/app/roleplay': typeof AppRoleplayRoute
   '/app/saved': typeof AppSavedRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/student-guide': typeof AppStudentGuideRouteWithChildren
   '/app/text': typeof AppTextRoute
   '/app/voice': typeof AppVoiceRoute
   '/app': typeof AppIndexRoute
+  '/app/student-guide/$country': typeof AppStudentGuideCountryRouteWithChildren
+  '/app/student-guide/$country/$category': typeof AppStudentGuideCountryCategoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -141,16 +166,19 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
   '/signup': typeof SignupRoute
-  '/app/assistant': typeof AppAssistantRoute
-  '/app/conversation': typeof AppConversationRoute
+  '/app/community': typeof AppCommunityRoute
   '/app/document': typeof AppDocumentRoute
   '/app/history': typeof AppHistoryRoute
   '/app/image': typeof AppImageRoute
+  '/app/roleplay': typeof AppRoleplayRoute
   '/app/saved': typeof AppSavedRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/student-guide': typeof AppStudentGuideRouteWithChildren
   '/app/text': typeof AppTextRoute
   '/app/voice': typeof AppVoiceRoute
   '/app/': typeof AppIndexRoute
+  '/app/student-guide/$country': typeof AppStudentGuideCountryRouteWithChildren
+  '/app/student-guide/$country/$category': typeof AppStudentGuideCountryCategoryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -160,32 +188,38 @@ export interface FileRouteTypes {
     | '/login'
     | '/pricing'
     | '/signup'
-    | '/app/assistant'
-    | '/app/conversation'
+    | '/app/community'
     | '/app/document'
     | '/app/history'
     | '/app/image'
+    | '/app/roleplay'
     | '/app/saved'
     | '/app/settings'
+    | '/app/student-guide'
     | '/app/text'
     | '/app/voice'
     | '/app/'
+    | '/app/student-guide/$country'
+    | '/app/student-guide/$country/$category'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/login'
     | '/pricing'
     | '/signup'
-    | '/app/assistant'
-    | '/app/conversation'
+    | '/app/community'
     | '/app/document'
     | '/app/history'
     | '/app/image'
+    | '/app/roleplay'
     | '/app/saved'
     | '/app/settings'
+    | '/app/student-guide'
     | '/app/text'
     | '/app/voice'
     | '/app'
+    | '/app/student-guide/$country'
+    | '/app/student-guide/$country/$category'
   id:
     | '__root__'
     | '/'
@@ -193,16 +227,19 @@ export interface FileRouteTypes {
     | '/login'
     | '/pricing'
     | '/signup'
-    | '/app/assistant'
-    | '/app/conversation'
+    | '/app/community'
     | '/app/document'
     | '/app/history'
     | '/app/image'
+    | '/app/roleplay'
     | '/app/saved'
     | '/app/settings'
+    | '/app/student-guide'
     | '/app/text'
     | '/app/voice'
     | '/app/'
+    | '/app/student-guide/$country'
+    | '/app/student-guide/$country/$category'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -271,6 +308,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppTextRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/student-guide': {
+      id: '/app/student-guide'
+      path: '/student-guide'
+      fullPath: '/app/student-guide'
+      preLoaderRoute: typeof AppStudentGuideRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/settings': {
       id: '/app/settings'
       path: '/settings'
@@ -283,6 +327,13 @@ declare module '@tanstack/react-router' {
       path: '/saved'
       fullPath: '/app/saved'
       preLoaderRoute: typeof AppSavedRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/roleplay': {
+      id: '/app/roleplay'
+      path: '/roleplay'
+      fullPath: '/app/roleplay'
+      preLoaderRoute: typeof AppRoleplayRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/image': {
@@ -306,44 +357,79 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDocumentRouteImport
       parentRoute: typeof AppRoute
     }
-    '/app/conversation': {
-      id: '/app/conversation'
-      path: '/conversation'
-      fullPath: '/app/conversation'
-      preLoaderRoute: typeof AppConversationRouteImport
+    '/app/community': {
+      id: '/app/community'
+      path: '/community'
+      fullPath: '/app/community'
+      preLoaderRoute: typeof AppCommunityRouteImport
       parentRoute: typeof AppRoute
     }
-    '/app/assistant': {
-      id: '/app/assistant'
-      path: '/assistant'
-      fullPath: '/app/assistant'
-      preLoaderRoute: typeof AppAssistantRouteImport
-      parentRoute: typeof AppRoute
+    '/app/student-guide/$country': {
+      id: '/app/student-guide/$country'
+      path: '/$country'
+      fullPath: '/app/student-guide/$country'
+      preLoaderRoute: typeof AppStudentGuideCountryRouteImport
+      parentRoute: typeof AppStudentGuideRoute
+    }
+    '/app/student-guide/$country/$category': {
+      id: '/app/student-guide/$country/$category'
+      path: '/$category'
+      fullPath: '/app/student-guide/$country/$category'
+      preLoaderRoute: typeof AppStudentGuideCountryCategoryRouteImport
+      parentRoute: typeof AppStudentGuideCountryRoute
     }
   }
 }
 
+interface AppStudentGuideCountryRouteChildren {
+  AppStudentGuideCountryCategoryRoute: typeof AppStudentGuideCountryCategoryRoute
+}
+
+const AppStudentGuideCountryRouteChildren: AppStudentGuideCountryRouteChildren =
+  {
+    AppStudentGuideCountryCategoryRoute: AppStudentGuideCountryCategoryRoute,
+  }
+
+const AppStudentGuideCountryRouteWithChildren =
+  AppStudentGuideCountryRoute._addFileChildren(
+    AppStudentGuideCountryRouteChildren,
+  )
+
+interface AppStudentGuideRouteChildren {
+  AppStudentGuideCountryRoute: typeof AppStudentGuideCountryRouteWithChildren
+}
+
+const AppStudentGuideRouteChildren: AppStudentGuideRouteChildren = {
+  AppStudentGuideCountryRoute: AppStudentGuideCountryRouteWithChildren,
+}
+
+const AppStudentGuideRouteWithChildren = AppStudentGuideRoute._addFileChildren(
+  AppStudentGuideRouteChildren,
+)
+
 interface AppRouteChildren {
-  AppAssistantRoute: typeof AppAssistantRoute
-  AppConversationRoute: typeof AppConversationRoute
+  AppCommunityRoute: typeof AppCommunityRoute
   AppDocumentRoute: typeof AppDocumentRoute
   AppHistoryRoute: typeof AppHistoryRoute
   AppImageRoute: typeof AppImageRoute
+  AppRoleplayRoute: typeof AppRoleplayRoute
   AppSavedRoute: typeof AppSavedRoute
   AppSettingsRoute: typeof AppSettingsRoute
+  AppStudentGuideRoute: typeof AppStudentGuideRouteWithChildren
   AppTextRoute: typeof AppTextRoute
   AppVoiceRoute: typeof AppVoiceRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
-  AppAssistantRoute: AppAssistantRoute,
-  AppConversationRoute: AppConversationRoute,
+  AppCommunityRoute: AppCommunityRoute,
   AppDocumentRoute: AppDocumentRoute,
   AppHistoryRoute: AppHistoryRoute,
   AppImageRoute: AppImageRoute,
+  AppRoleplayRoute: AppRoleplayRoute,
   AppSavedRoute: AppSavedRoute,
   AppSettingsRoute: AppSettingsRoute,
+  AppStudentGuideRoute: AppStudentGuideRouteWithChildren,
   AppTextRoute: AppTextRoute,
   AppVoiceRoute: AppVoiceRoute,
   AppIndexRoute: AppIndexRoute,
@@ -361,3 +447,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

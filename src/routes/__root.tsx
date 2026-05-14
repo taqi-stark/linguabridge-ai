@@ -13,10 +13,13 @@ import appCss from "../styles.css?url";
 function NotFound() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
-      <div className="glass-strong rounded-3xl p-10 max-w-md text-center shadow-elegant">
-        <h1 className="text-7xl font-display text-gradient-mint">404</h1>
+      <div className="bg-card rounded-xl p-10 max-w-md text-center shadow-sm">
+        <h1 className="text-7xl font-display text-bg-primary text-primary-foreground">404</h1>
         <p className="mt-3 text-muted-foreground">This page wandered off the map.</p>
-        <Link to="/" className="mt-6 inline-flex rounded-full gradient-mint px-5 py-2 text-primary-foreground font-medium">
+        <Link
+          to="/"
+          className="mt-6 inline-flex rounded-full bg-primary text-primary-foreground px-5 py-2 text-primary-foreground font-medium"
+        >
           Go home
         </Link>
       </div>
@@ -28,13 +31,18 @@ function ErrorComp({ error, reset }: { error: Error; reset: () => void }) {
   const router = useRouter();
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
-      <div className="glass-strong rounded-3xl p-10 max-w-md text-center shadow-elegant">
+      <div className="bg-card rounded-xl p-10 max-w-md text-center shadow-sm">
         <h2 className="text-xl font-display">Something went wrong</h2>
         <p className="mt-2 text-sm text-muted-foreground">{error.message}</p>
         <button
-          onClick={() => { router.invalidate(); reset(); }}
-          className="mt-6 inline-flex rounded-full gradient-mint px-5 py-2 text-primary-foreground font-medium"
-        >Try again</button>
+          onClick={() => {
+            router.invalidate();
+            reset();
+          }}
+          className="mt-6 inline-flex rounded-full bg-primary text-primary-foreground px-5 py-2 text-primary-foreground font-medium"
+        >
+          Try again
+        </button>
       </div>
     </div>
   );
@@ -44,7 +52,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      {
+        name: "viewport",
+        content:
+          "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover",
+      },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+      { name: "theme-color", content: "#171717" },
       { title: "LinguaBridge AI — AI Translation between Italian, English & Urdu" },
       {
         name: "description",
@@ -57,6 +72,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
+      { rel: "manifest", href: "/manifest.json" },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
@@ -69,6 +85,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         children: `try{var t=localStorage.getItem('lb-theme')||'dark';if(t==='dark')document.documentElement.classList.add('dark');}catch(e){document.documentElement.classList.add('dark');}`,
       },
+      {
+        children: `if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js', { scope: '/' }) }) }`
+      }
     ],
   }),
   shellComponent: RootShell,
@@ -80,8 +99,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
-      <head><HeadContent /></head>
-      <body>{children}<Scripts /></body>
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+      </body>
     </html>
   );
 }

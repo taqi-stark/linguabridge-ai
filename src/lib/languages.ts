@@ -1,15 +1,58 @@
 export const LANGUAGES = [
   { code: "auto", label: "Auto-detect", flag: "🌐", bcp47: "" },
+  { code: "ar", label: "Arabic", flag: "🇸🇦", bcp47: "ar-SA" },
+  { code: "bn", label: "Bengali", flag: "🇧🇩", bcp47: "bn-BD" },
+  { code: "bg", label: "Bulgarian", flag: "🇧🇬", bcp47: "bg-BG" },
+  { code: "zh", label: "Chinese (Simp)", flag: "🇨🇳", bcp47: "zh-CN" },
+  { code: "hr", label: "Croatian", flag: "🇭🇷", bcp47: "hr-HR" },
+  { code: "cs", label: "Czech", flag: "🇨🇿", bcp47: "cs-CZ" },
+  { code: "da", label: "Danish", flag: "🇩🇰", bcp47: "da-DK" },
+  { code: "nl", label: "Dutch", flag: "🇳🇱", bcp47: "nl-NL" },
   { code: "en", label: "English", flag: "🇬🇧", bcp47: "en-US" },
-  { code: "it", label: "Italiano", flag: "🇮🇹", bcp47: "it-IT" },
-  { code: "ur", label: "اردو", flag: "🇵🇰", bcp47: "ur-PK" },
+  { code: "et", label: "Estonian", flag: "🇪🇪", bcp47: "et-EE" },
+  { code: "fil", label: "Filipino", flag: "🇵🇭", bcp47: "fil-PH" },
+  { code: "fi", label: "Finnish", flag: "🇫🇮", bcp47: "fi-FI" },
+  { code: "fr", label: "French", flag: "🇫🇷", bcp47: "fr-FR" },
+  { code: "de", label: "German", flag: "🇩🇪", bcp47: "de-DE" },
+  { code: "el", label: "Greek", flag: "🇬🇷", bcp47: "el-GR" },
+  { code: "gu", label: "Gujarati", flag: "🇮🇳", bcp47: "gu-IN" },
+  { code: "kk", label: "Kazakh", flag: "🇰🇿", bcp47: "kk-KZ" },
+  { code: "hi", label: "Hindi", flag: "🇮🇳", bcp47: "hi-IN" },
+  { code: "hu", label: "Hungarian", flag: "🇭🇺", bcp47: "hu-HU" },
+  { code: "id", label: "Indonesian", flag: "🇮🇩", bcp47: "id-ID" },
+  { code: "it", label: "Italian", flag: "🇮🇹", bcp47: "it-IT" },
+  { code: "ja", label: "Japanese", flag: "🇯🇵", bcp47: "ja-JP" },
+  { code: "kn", label: "Kannada", flag: "🇮🇳", bcp47: "kn-IN" },
+  { code: "ko", label: "Korean", flag: "🇰🇷", bcp47: "ko-KR" },
+  { code: "lv", label: "Latvian", flag: "🇱🇻", bcp47: "lv-LV" },
+  { code: "lt", label: "Lithuanian", flag: "🇱🇹", bcp47: "lt-LT" },
+  { code: "ms", label: "Malay", flag: "🇲🇾", bcp47: "ms-MY" },
+  { code: "ml", label: "Malayalam", flag: "🇮🇳", bcp47: "ml-IN" },
+  { code: "mr", label: "Marathi", flag: "🇮🇳", bcp47: "mr-IN" },
+  { code: "no", label: "Norwegian", flag: "🇳🇴", bcp47: "no-NO" },
+  { code: "fa", label: "Persian", flag: "🇮🇷", bcp47: "fa-IR" },
+  { code: "pl", label: "Polish", flag: "🇵🇱", bcp47: "pl-PL" },
+  { code: "pt", label: "Portuguese", flag: "🇵🇹", bcp47: "pt-PT" },
+  { code: "pa", label: "Punjabi", flag: "🇮🇳", bcp47: "pa-IN" },
+  { code: "ro", label: "Romanian", flag: "🇷🇴", bcp47: "ro-RO" },
+  { code: "ru", label: "Russian", flag: "🇷🇺", bcp47: "ru-RU" },
+  { code: "sr", label: "Serbian", flag: "🇷🇸", bcp47: "sr-RS" },
+  { code: "sk", label: "Slovak", flag: "🇸🇰", bcp47: "sk-SK" },
+  { code: "sl", label: "Slovenian", flag: "🇸🇮", bcp47: "sl-SI" },
+  { code: "es", label: "Spanish", flag: "🇪🇸", bcp47: "es-ES" },
+  { code: "sw", label: "Swahili", flag: "🇰🇪", bcp47: "sw-KE" },
+  { code: "sv", label: "Swedish", flag: "🇸🇪", bcp47: "sv-SE" },
+  { code: "ta", label: "Tamil", flag: "🇮🇳", bcp47: "ta-IN" },
+  { code: "te", label: "Telugu", flag: "🇮🇳", bcp47: "te-IN" },
+  { code: "th", label: "Thai", flag: "🇹🇭", bcp47: "th-TH" },
+  { code: "tr", label: "Turkish", flag: "🇹🇷", bcp47: "tr-TR" },
+  { code: "uk", label: "Ukrainian", flag: "🇺🇦", bcp47: "uk-UA" },
+  { code: "ur", label: "Urdu", flag: "🇵🇰", bcp47: "ur-PK" },
+  { code: "vi", label: "Vietnamese", flag: "🇻🇳", bcp47: "vi-VN" },
 ] as const;
 
 export type LangCode = (typeof LANGUAGES)[number]["code"];
 
-export const langLabel = (code: string) =>
-  LANGUAGES.find((l) => l.code === code)?.label ?? code;
-export const langBcp47 = (code: string) =>
-  LANGUAGES.find((l) => l.code === code)?.bcp47 ?? "en-US";
-export const langFlag = (code: string) =>
-  LANGUAGES.find((l) => l.code === code)?.flag ?? "🌐";
+export const langLabel = (code: string) => LANGUAGES.find((l) => l.code === code)?.label ?? code;
+export const langBcp47 = (code: string) => LANGUAGES.find((l) => l.code === code)?.bcp47 ?? "en-US";
+export const langFlag = (code: string) => LANGUAGES.find((l) => l.code === code)?.flag ?? "🌐";

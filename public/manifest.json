@@ -1,0 +1,22 @@
+{
+  "name": "LinguaBridge AI",
+  "short_name": "LinguaBridge",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#171717",
+  "theme_color": "#171717",
+  "description": "AI-Powered Translation Suite",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "192x192",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "512x512",
+      "type": "image/x-icon"
+    }
+  ]
+}
