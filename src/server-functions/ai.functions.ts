@@ -1,16 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-import { getEvent } from "vinxi/http";
-
 const getEnvVar = (key: string) => {
-  try {
-    const event = getEvent();
-    if (event?.context?.cloudflare?.env?.[key]) {
-      return String(event.context.cloudflare.env[key]);
-    }
-  } catch (e) {}
-
   if (typeof process !== "undefined" && process.env && process.env[key]) return String(process.env[key]);
   if (typeof (globalThis as any).__env__ !== "undefined" && (globalThis as any).__env__[key]) return String((globalThis as any).__env__[key]);
   return undefined;
