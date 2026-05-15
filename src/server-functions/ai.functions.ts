@@ -1,8 +1,14 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
+const getEnvVar = (key: string) => {
+  if (typeof process !== "undefined" && process.env && process.env[key]) return String(process.env[key]);
+  if (typeof (globalThis as any).__env__ !== "undefined" && (globalThis as any).__env__[key]) return String((globalThis as any).__env__[key]);
+  return undefined;
+};
+
 const GATEWAY =
-  process.env.AI_BASE_URL ||
+  getEnvVar("AI_BASE_URL") ||
   "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
 
 const langName = (code: string) => {
@@ -69,14 +75,14 @@ async function enforceLimit(uid: string, type: "image" | "document") {
 
 class AIProviderManager {
   static get openAIKey() {
-    return process.env.OPENAI_API_KEY;
+    return getEnvVar("OPENAI_API_KEY");
   }
   static get deepLKey() {
-    return process.env.DEEPL_API_KEY;
+    return getEnvVar("DEEPL_API_KEY");
   }
 
   static get geminiKeys() {
-    return (process.env.GEMINI_API_KEY || "")
+    return (getEnvVar("GEMINI_API_KEY") || "")
       .split(",")
       .map((k) => k.trim())
       .filter(Boolean);
@@ -94,7 +100,7 @@ class AIProviderManager {
   static async callGemini(body: any) {
     if (!this.geminiKey) throw new Error("Gemini API key missing");
     const uri =
-      process.env.AI_BASE_URL ||
+      getEnvVar("AI_BASE_URL") ||
       "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
     const res = await fetch(uri, {
       method: "POST",

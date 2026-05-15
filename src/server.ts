@@ -68,13 +68,12 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
 
 export default {
   async fetch(request: Request, env: Record<string, unknown>, ctx: unknown) {
-    // 🚀 Inject Cloudflare Secrets (env bindings) into Node's global process.env securely
-    if (typeof process === "undefined") {
-      (globalThis as any).process = { env: {} };
-    }
-    if (!process.env) process.env = {};
+    // 🚀 Inject Cloudflare Secrets explicitly into global bindings
     if (env && typeof env === "object") {
-      Object.assign(process.env, env);
+       (globalThis as any).__env__ = env;
+       if (typeof process !== "undefined" && process.env) {
+          Object.assign(process.env, env);
+       }
     }
 
     try {
