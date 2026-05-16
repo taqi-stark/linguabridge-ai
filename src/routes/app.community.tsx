@@ -16,14 +16,28 @@ function CommunityHub() {
   return (
     <div className="flex flex-col h-full">
       <PageHeader
-        title="Campus Hub"
-        description="Connect with students moving to the same city. Join multiplayer roleplays with real-time AI translation."
+        title="Campus Hub Directory"
+        description="Your global network of expats and international students."
         badge={
           <div className="text-sm font-medium bg-primary/10 text-primary border border-primary/20 px-3 py-1.5 rounded-full inline-flex items-center gap-2">
             <Users className="h-4 w-4"/> Multiplayer Alpha
           </div>
         }
       />
+
+      <div className="mt-6 mb-8 bg-card border border-primary/20 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row gap-6 items-center relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
+        <div className="flex-1 space-y-3 z-10">
+          <h2 className="text-xl font-display font-bold">How Matchmaking Works</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            The Campus Hub actively connects you with language partners heading to your exact destination. 
+            When you click <strong>Multiplayer</strong>, you enter a real-time Voice Room. Our engine acts as an instant interpreter between your <span className="font-bold text-foreground">Native</span> language and their native language, allowing you to fluidly practice <span className="font-bold text-foreground">Target</span> scenarios without breaking immersion.
+          </p>
+        </div>
+        <div className="w-full md:w-auto shrink-0 z-10">
+           <Button className="w-full md:w-auto rounded-full"><UserPlus className="h-4 w-4 mr-2"/> Setup Profile Match</Button>
+        </div>
+      </div>
 
       <div className="mt-6">
         <div className="flex gap-3 mb-6 flex-wrap">

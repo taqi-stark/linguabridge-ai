@@ -446,3 +446,69 @@ export const magicDocumentAutofill = createServerFn({ method: "POST" })
       message: "Autonomous Bureaucracy Copilot scaffold engaged. Form filled successfully based on vault artifacts."
     };
   });
+
+export const analyzeSentence = createServerFn({ method: "POST" })
+  .inputValidator((d: unknown) =>
+    z
+      .object({
+        sentence: z.string().min(1).max(500),
+        targetLanguage: z.string(),
+      })
+      .parse(d),
+  )
+  .handler(async ({ data }) => {
+    const sys = `You are a master linguist and grammar teacher. The user provided a non-English sentence in ${langName(data.targetLanguage)}.
+Break down the sentence EXACTLY following this tool schema.
+- 'literal_translation': Literal English translation.
+- 'words': Array of each word/morpheme with its specific root, grammar rule, and meaning.
+- 'slang_idioms': Explain any cultural slang or idioms used.
+- 'how_to_reply': Array of 2-3 culturally appropriate responses.`;
+
+    const result = await AIProviderManager.route({
+      messages: [
+        { role: "system", content: sys },
+        { role: "user", content: `Analyze: "${data.sentence}"` },
+      ],
+      tools: [
+        {
+          type: "function",
+          function: {
+            name: "return_analysis",
+            description: "Return the grammatical and cultural breakdown.",
+            parameters: {
+              type: "object",
+              properties: {
+                literal_translation: { type: "string" },
+                words: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      word: { type: "string" },
+                      base_form: { type: "string" },
+                      grammar_role: { type: "string" },
+                      meaning: { type: "string" }
+                    },
+                    required: ["word", "base_form", "grammar_role", "meaning"]
+                  },
+                },
+                slang_idioms: { type: "string", description: "Any cultural nuances or state 'None'" },
+                how_to_reply: {
+                  type: "array",
+                  items: { type: "string" },
+                  description: "2-3 short, native-like replies"
+                }
+              },
+              required: ["literal_translation", "words", "slang_idioms", "how_to_reply"],
+              additionalProperties: false,
+            },
+          },
+        },
+      ],
+      tool_choice: { type: "function", function: { name: "return_analysis" } },
+    });
+
+    const call = result?.choices?.[0]?.message?.tool_calls?.[0];
+    if (!call) throw new Error("Failed to generate analysis.");
+    return JSON.parse(call.function.arguments);
+  });
