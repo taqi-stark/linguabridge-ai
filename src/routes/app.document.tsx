@@ -404,12 +404,12 @@ function FileTranslator() {
           
           {/* LIVE LENS AR MODE */}
           {liveLensMode && (
-             <div className="absolute inset-0 z-50 bg-black flex flex-col">
+             <div className="fixed inset-0 z-[100] bg-black flex flex-col">
                <video ref={activeVideoRef} autoPlay playsInline className="flex-1 object-cover w-full opacity-80" />
-               <div className="absolute inset-x-0 bottom-6 flex justify-center">
-                 <button onClick={captureLens} className="w-16 h-16 rounded-full bg-white/20 border-4 border-white flex items-center justify-center hover:bg-white/40 backdrop-blur-md transition-colors" />
+               <div className="absolute inset-x-0 bottom-12 flex justify-center z-10">
+                 <button onClick={captureLens} className="w-16 h-16 shadow-[0_0_20px_rgba(255,255,255,0.4)] rounded-full bg-white/20 border-4 border-white flex items-center justify-center hover:bg-white/40 backdrop-blur-md transition-colors" />
                </div>
-               <button onClick={() => setLiveLensMode(false)} className="absolute top-4 right-4 bg-black/50 text-white p-2 rounded-full backdrop-blur-md">
+               <button onClick={() => setLiveLensMode(false)} className="absolute top-10 right-4 z-10 bg-black/50 text-white w-10 h-10 flex items-center justify-center rounded-full backdrop-blur-md">
                  ✕
                </button>
              </div>
@@ -477,7 +477,7 @@ function FileTranslator() {
                     </div>
                   </div>
 
-                  <div className="pt-2 border-t border-border/40 mt-4">
+                  <div className="pt-2 border-t border-border/40 mt-4 pb-24">
                     <Button asChild className="w-full rounded-xl bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 shadow-none font-medium text-[13px] h-10">
                       <Link to="/app/roleplay" search={{ lang: target, scenario: `Discussing a newly translated document: ${ocrResult.document_type}` }}>
                         <GraduationCap className="h-4 w-4 mr-2" />

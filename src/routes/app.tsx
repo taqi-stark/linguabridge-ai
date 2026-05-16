@@ -224,7 +224,7 @@ function AppLayout() {
           </header>
         )}
 
-        <main className="flex-1 overflow-y-auto w-full relative z-10 flex flex-col h-full scrollbar-none pb-24 lg:pb-0 overflow-x-hidden">
+        <main className="flex-1 overflow-y-auto w-full relative z-10 flex flex-col h-full scrollbar-none pb-24 lg:pb-0 overflow-x-hidden [-webkit-overflow-scrolling:touch]">
           <AnimatePresence mode="wait">
             <motion.div
               key={path}
