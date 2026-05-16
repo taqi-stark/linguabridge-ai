@@ -311,7 +311,7 @@ function RoleplayPage() {
                         {m.correction}
                       </div>
                     )}
-                    <p className="text-[15px] leading-relaxed whitespace-pre-wrap">{m.content}</p>
+                    <p className="text-[15px] leading-relaxed whitespace-pre-wrap break-words overflow-hidden">{m.content}</p>
                     {(m.translation || inlineTrans[i]) && (
                       <div className="mt-3 pt-3 border-t border-border/40 text-[15px] text-primary-glow font-medium italic !text-foreground opacity-90 leading-relaxed">
                         {m.translation || inlineTrans[i]}

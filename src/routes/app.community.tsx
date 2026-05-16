@@ -59,9 +59,9 @@ function CommunityHub() {
                    <div className="w-12 h-12 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-display font-bold">
                      {u.avatar}
                    </div>
-                   <div>
-                     <div className="font-semibold text-foreground tracking-tight">{u.name}</div>
-                     <div className="text-sm text-muted-foreground">{u.role}</div>
+                   <div className="min-w-0">
+                     <div className="font-semibold text-foreground tracking-tight line-clamp-1 break-words">{u.name}</div>
+                     <div className="text-sm text-muted-foreground line-clamp-2 break-words">{u.role}</div>
                    </div>
                  </div>
                </div>

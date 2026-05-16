@@ -405,7 +405,7 @@ function FileTranslator() {
           {/* LIVE LENS AR MODE */}
           {liveLensMode && (
              <div className="fixed inset-0 z-[100] bg-black flex flex-col">
-               <video ref={activeVideoRef} autoPlay playsInline className="flex-1 object-cover w-full opacity-80" />
+               <video ref={activeVideoRef} autoPlay playsInline muted className="flex-1 object-cover w-full opacity-80" />
                <div className="absolute inset-x-0 bottom-12 flex justify-center z-10">
                  <button onClick={captureLens} className="w-16 h-16 shadow-[0_0_20px_rgba(255,255,255,0.4)] rounded-full bg-white/20 border-4 border-white flex items-center justify-center hover:bg-white/40 backdrop-blur-md transition-colors" />
                </div>
@@ -535,10 +535,10 @@ function FileTranslator() {
               <div className="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-xs">
                 {chunksRaw.map((raw, idx) => (
                   <div key={idx} className="grid grid-cols-2 gap-4 pb-4 border-b border-white/5">
-                    <div className="text-muted-foreground pr-2 whitespace-pre-wrap opacity-70 break-all">
+                    <div className="text-muted-foreground pr-2 whitespace-pre-wrap opacity-70 break-words overflow-hidden text-ellipsis">
                       {raw}
                     </div>
-                    <div className="pl-2 whitespace-pre-wrap border-l border-white/5 break-all">
+                    <div className="pl-2 whitespace-pre-wrap border-l border-white/5 break-words overflow-hidden text-ellipsis">
                       {chunksTrans[idx] || (
                         <span className="flex items-center text-muted-foreground italic">
                           <Loader2 className="h-3 w-3 animate-spin mr-2" /> translating...
