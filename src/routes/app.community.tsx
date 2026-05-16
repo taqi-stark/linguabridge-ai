@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Users, UserPlus, MessageCircle, MapPin, Search } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/app/community")({ component: CommunityHub });
 
@@ -13,8 +15,10 @@ const MOCK_USERS = [
 ];
 
 function CommunityHub() {
+  const [pending, setPending] = useState<number[]>([]);
+
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col pb-24 lg:pb-8">
       <PageHeader
         title="Campus Hub Directory"
         description="Your global network of expats and international students."
@@ -72,8 +76,21 @@ function CommunityHub() {
                </div>
 
                <div className="mt-6 flex gap-2">
-                 <Button className="flex-1 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 shadow-none"><UserPlus className="h-4 w-4 mr-2"/> Connect</Button>
-                 <Button className="flex-1 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm border border-primary/20"><MessageCircle className="h-4 w-4 mr-2"/> Multiplayer</Button>
+                 <Button 
+                   onClick={() => {
+                     toast.success(`Connection request sent to ${u.name}!`);
+                     setPending(p => [...p, u.id]);
+                   }}
+                   disabled={pending.includes(u.id)}
+                   className={`flex-1 rounded-lg shadow-none border ${pending.includes(u.id) ? "bg-muted text-muted-foreground border-border" : "bg-primary/10 hover:bg-primary/20 text-primary border-primary/20"}`}
+                 >
+                   <UserPlus className="h-4 w-4 mr-2"/> {pending.includes(u.id) ? "Pending" : "Connect"}
+                 </Button>
+                 <Button asChild className="flex-1 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm border border-primary/20">
+                   <Link to="/app/roleplay" search={{ lang: u.target, scenario: `Multiplayer Voice Room with ${u.name} (Native: ${u.native}, Learning: ${u.target})` }}>
+                     <MessageCircle className="h-4 w-4 mr-2"/> Multiplayer
+                   </Link>
+                 </Button>
                </div>
             </div>
           ))}
