@@ -2,6 +2,15 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "linguabridge-ai",
   "compatibility_date": "2025-09-24",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "main": "src/server.ts",
+  "vars": {
+    "SUPABASE_URL": "https://pzskwqrwssxkersgufmn.supabase.co",
+    "VITE_SUPABASE_URL": "https://pzskwqrwssxkersgufmn.supabase.co",
+    "SUPABASE_PUBLISHABLE_KEY": "sb_publishable_O4iNM_JuSeEjs7yq0ggF1w_uw3gO0V4",
+    "VITE_SUPABASE_PUBLISHABLE_KEY": "sb_publishable_O4iNM_JuSeEjs7yq0ggF1w_uw3gO0V4",
+    "VITE_SUPABASE_PROJECT_ID": "pzskwqrwssxkersgufmn"
+  }
 }

@@ -57,7 +57,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover",
       },
-      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
       { name: "theme-color", content: "#171717" },
       { title: "LinguaBridge AI — AI Translation between Italian, English & Urdu" },
@@ -85,9 +85,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         children: `try{var t=localStorage.getItem('lb-theme')||'dark';if(t==='dark')document.documentElement.classList.add('dark');}catch(e){document.documentElement.classList.add('dark');}`,
       },
-      {
-        children: `if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js', { scope: '/' }) }) }`
-      }
     ],
   }),
   shellComponent: RootShell,
