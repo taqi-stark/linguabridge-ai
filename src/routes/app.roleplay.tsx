@@ -14,9 +14,9 @@ import {
   Utensils,
   Plane,
   Building,
-  Briefcase,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import {
   Select,
   SelectTrigger,
@@ -83,6 +83,7 @@ function RoleplayPage() {
   const [transLoading, setTransLoading] = useState<Record<number, boolean>>({});
   const [analysis, setAnalysis] = useState<Record<number, any>>({});
   const [analysisLoading, setAnalysisLoading] = useState<Record<number, boolean>>({});
+  const [showIntro, setShowIntro] = useState(false);
 
   const recRef = useRef<any>(null);
   const chatRef = useRef<HTMLDivElement>(null);
@@ -164,11 +165,6 @@ function RoleplayPage() {
         { role: "assistant", content: res.reply, translation: res.translation, cefr: res.cefr, score: res.score, suggestions: res.suggestions, correction: res.correction },
       ]);
 
-      if (typeof window !== "undefined" && window.speechSynthesis) {
-        const u = new SpeechSynthesisUtterance(res.reply.replace(/\[.*?\]/g, ""));
-        u.lang = langBcp47(targetLang);
-        window.speechSynthesis.speak(u);
-      }
     } catch (e) {
       toast.error((e as Error).message);
       setMessages(newMsgs.slice(0, -1));
@@ -185,8 +181,13 @@ function RoleplayPage() {
     setMessages([]);
     setInputText("");
     setInlineTrans({});
+    setShowIntro(true);
+  };
+
+  const handleIntroOk = () => {
+    setShowIntro(false);
     setTimeout(() => {
-      sendMessageText("Hi, let's start the roleplay simulation.", title);
+      sendMessageText("Hi, let's start the roleplay simulation.", scenarioTitle || "");
     }, 500);
   };
 
@@ -237,7 +238,7 @@ function RoleplayPage() {
   };
 
   return (
-    <div className="flex flex-col h-full h-[calc(100vh-8rem)]">
+    <div className="flex flex-col h-[calc(100vh-5rem)] md:h-[calc(100vh-4rem)]">
       <PageHeader
         title="Roleplay Coach"
         description="Immerse yourself perfectly in realistic interactive scenarios."
@@ -468,6 +469,20 @@ function RoleplayPage() {
           </div>
         </div>
       )}
+
+      <Dialog open={showIntro} onOpenChange={setShowIntro}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Welcome to Roleplay Coach</DialogTitle>
+            <DialogDescription>
+              In this immersive simulation, you practice real-world scenarios. Use your microphone or text. Tap "Replay" under any message to hear it spoken aloud, and "Translate" to understand it better.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button onClick={handleIntroOk}>Got it! Start</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

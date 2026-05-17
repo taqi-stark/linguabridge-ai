@@ -66,11 +66,6 @@ function TextTranslator() {
           setTranslit("");
           toast.success("TM Match: Saved compute cost ⚡");
 
-          if (localStorage.getItem("lb-auto-speak") === "true" && window.speechSynthesis) {
-            const u = new SpeechSynthesisUtterance(match.translated_text);
-            u.lang = langBcp47(target);
-            speechSynthesis.speak(u);
-          }
           setLoading(false);
           return;
         }
@@ -101,11 +96,7 @@ function TextTranslator() {
       setOut(r.translation);
       setConf(r.confidence);
       setTranslit(r.transliteration);
-      if (localStorage.getItem("lb-auto-speak") === "true" && window.speechSynthesis) {
-        const u = new SpeechSynthesisUtterance(r.translation);
-        u.lang = langBcp47(target);
-        speechSynthesis.speak(u);
-      }
+
     } catch (e) {
       toast.error((e as Error).message);
     } finally {

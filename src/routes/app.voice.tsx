@@ -29,31 +29,42 @@ function ConvPage() {
   const tr = useServerFn(translateText);
 
   useEffect(() => {
+    // Only check for support, don't instantiate globally as some browsers kill inactive instances.
     const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SR) return;
-    recRef.current = new SR();
-    recRef.current.continuous = true;
-    recRef.current.interimResults = true;
+    if (!SR) toast.error("Speech recognition not supported in this browser");
   }, []);
 
   const startSpeech = (speaker: "A" | "B") => {
-    if (!recRef.current) return toast.error("Speech recognition not supported");
+    const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SR) return toast.error("Speech recognition not supported");
+    
+    if (recRef.current) {
+      try { recRef.current.stop(); } catch(e) {}
+    }
+
+    const r = new SR();
+    r.continuous = true;
+    r.interimResults = true;
     const from = speaker === "A" ? langA : langB;
-    recRef.current.lang = langBcp47(from);
+    r.lang = langBcp47(from);
     setActive(speaker);
     setStreamingText("");
 
-    recRef.current.onresult = (e: any) => {
+    r.onresult = (e: any) => {
       let interim = "";
       for (let i = e.resultIndex; i < e.results.length; ++i) {
-        if (!e.results[i].isFinal) interim += e.results[i][0].transcript;
+        interim += e.results[i][0].transcript;
       }
       setStreamingText(interim);
     };
 
+    recRef.current = r;
+
     try {
       recRef.current.start();
-    } catch (e) {}
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const stopSpeech = () => {
